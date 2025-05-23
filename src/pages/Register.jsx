@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -10,23 +11,35 @@ export default function Register() {
   const [company, setCompany] = useState("");
   const [agency, setAgency] = useState("");
 
- const handleRegister = () => {
-  if (!fullName || !phone || !email || !password || !agency) {
-    alert("Please fill in all required fields marked with *");
-    return;
-  }
-  navigate("/account");
-};
-
+  const handleRegister = () => {
+    if (!fullName || !phone || !email || !password || !agency) {
+      alert("Please fill in all required fields marked with *");
+      return;
+    }
+    navigate("/account");
+  };
 
   return (
-    <div className="min-h-screen flex justify-center  p-4">
-      <div className="w-full max-w-sm flex flex-col bg-gray-50 p-6 rounded border-[2px] border-gray-200" style={{ minHeight: "500px" }}>
-        <button onClick={() => navigate(-1)} className="mb-4 text-purple-600 self-start">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}   // Start invisible and shifted down
+      animate={{ opacity: 1, y: 0 }}    // Animate to fully visible and original position
+      transition={{ duration: 0.6 }}    // Animation duration 0.6s
+      className="min-h-screen flex justify-center p-4"
+    >
+      <div
+        className="w-full max-w-sm flex flex-col bg-gray-50 p-6 rounded border-[2px] border-gray-200"
+        style={{ minHeight: "500px" }}
+      >
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 text-purple-600 self-start"
+        >
           ← Back
         </button>
 
-        <h2 className="text-xl font-bold mb-6 w-[150px]">Create your PopX account</h2>
+        <h2 className="text-xl font-bold mb-6 w-[150px]">
+          Create your PopX account
+        </h2>
 
         {/* Full Name */}
         <div className="relative mb-6">
@@ -34,7 +47,7 @@ export default function Register() {
             htmlFor="fullName"
             className="absolute -top-2 left-3 bg-gray-50 px-1 text-sm text-purple-600"
           >
-            Full Name <span className="text-red-500" >*</span>
+            Full Name <span className="text-red-500">*</span>
           </label>
           <input
             id="fullName"
@@ -118,35 +131,34 @@ export default function Register() {
           />
         </div>
 
-        <p className="mb-1  font-semibold">Are you an Agency?*</p>
+        <p className="mb-1 font-semibold">Are you an Agency?*</p>
 
         {/* Radio Buttons with violet selection */}
         <div className="flex gap-6 mb-6">
-  <label className="flex items-center cursor-pointer">
-    <input
-      type="radio"
-      name="agency"
-      value="yes"
-      className="accent-violet-600 w-5 h-5"
-      onChange={(e) => setAgency(e.target.value)}
-      checked={agency === "yes"}
-    />
-    <span className="ml-2 text-purple-700 select-none">Yes</span>
-  </label>
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="radio"
+              name="agency"
+              value="yes"
+              className="accent-violet-600 w-5 h-5"
+              onChange={(e) => setAgency(e.target.value)}
+              checked={agency === "yes"}
+            />
+            <span className="ml-2 text-purple-700 select-none">Yes</span>
+          </label>
 
-  <label className="flex items-center cursor-pointer">
-    <input
-      type="radio"
-      name="agency"
-      value="no"
-      className="accent-violet-600 w-5 h-5"
-      onChange={(e) => setAgency(e.target.value)}
-      checked={agency === "no"}
-    />
-    <span className="ml-2 text-purple-700 select-none">No</span>
-  </label>
-</div>
-
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="radio"
+              name="agency"
+              value="no"
+              className="accent-violet-600 w-5 h-5"
+              onChange={(e) => setAgency(e.target.value)}
+              checked={agency === "no"}
+            />
+            <span className="ml-2 text-purple-700 select-none">No</span>
+          </label>
+        </div>
 
         {/* Button pushed to bottom */}
         <div className="mt-auto">
@@ -158,6 +170,6 @@ export default function Register() {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
